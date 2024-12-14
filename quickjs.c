@@ -970,20 +970,33 @@ struct JSObject {
     /* byte sizes: 40/48/72 */
 };
 
+
 enum {
     __JS_ATOM_NULL = JS_ATOM_NULL,
-#define DEF(name, str) JS_ATOM_ ## name,
-#include "quickjs-atom.h"
-#undef DEF
+#if CONFIG_HANZI_KEYWORD
+    #define DEF(name, str, han_str) JS_ATOM_ ## name,
+    #include "quickjs-atom-ec2.h"
+    #undef DEF
+#else
+    #define DEF(name, str) JS_ATOM_ ## name,
+    #include "quickjs-atom.h"
+    #undef DEF
+#endif
     JS_ATOM_END,
 };
 #define JS_ATOM_LAST_KEYWORD JS_ATOM_super
 #define JS_ATOM_LAST_STRICT_KEYWORD JS_ATOM_yield
 
 static const char js_atom_init[] =
-#define DEF(name, str) str "\0"
-#include "quickjs-atom.h"
-#undef DEF
+#if CONFIG_HANZI_KEYWORD
+    #define DEF(name, str, han_str) han_str "\0"
+    #include "quickjs-atom-ec2.h"
+    #undef DEF
+#else
+    #define DEF(name, str) str "\0"
+    #include "quickjs-atom.h"
+    #undef DEF
+#endif
 ;
 
 typedef enum OPCodeFormat {
@@ -2850,6 +2863,7 @@ static JSAtom __JS_NewAtom(JSRuntime *rt, JSString *str, int atom_type)
     return i;
 }
 
+// TBD
 /* only works with zero terminated 8 bit strings */
 static JSAtom __JS_NewAtomInit(JSRuntime *rt, const char *str, int len,
                                int atom_type)
