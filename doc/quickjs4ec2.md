@@ -79,6 +79,14 @@ JS 中缺乏 EC2 所需要的 `字节`、`字符` 等基础数据类型，需要
 
 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects>
 
+## 各数据类型字面值的支持
+
+JS 中缺乏 EC2 所定义的各数据类型字面值的支持，可简单通过语法糖处理。 如 EC2 中的任意整数：`a = 0a1234`，相当于 JS 如下代码：
+
+```js
+    var a = new BigInt(1234);
+```
+
 ## 运算符
 
 JS 中缺乏 EC2 所需要的如下运算符，需要修改 quickjs 以支持：
