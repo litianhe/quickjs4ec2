@@ -71,7 +71,7 @@ JS 中缺乏 EC2 所需要的 `字节`、`字符` 等基础数据类型，需要
 
 1. JS 的 `Number` 对象，同 EC2 的 `浮点数/float` 数据类型。
 1. 参照 JS `Number` 对象，新增 `字节/byte`、`字符/uchar`、`整数/int` 数据类型。
-1. JS 的 `Uint8Array` 对象，同 EC2 的 `字节串/bytesequece` 数据类型。
+1. JS 的 `Uint8Array` 对象，同 EC2 的 `字节串/bytes` 数据类型。
 1. JS 的 `String` 对象，同 EC2 的 `字符串/string` 数据类型。
 1. JS 的 `Array` 对象，同 EC2 的 `序列/sequence` 数据类型。
 
