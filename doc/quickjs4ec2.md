@@ -14,7 +14,7 @@ EC2 关键词可见：
 
 改造内容：
 
-1) 增加新的配置选项 `CONFIG_HANZI_KEYWORD`。
+1) 增加新的编译期配置选项 `CONFIG_HANZI_KEYWORD`。
 
 2) 调整 `DEF` 宏的定义和使用：
 
