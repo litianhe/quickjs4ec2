@@ -52,7 +52,7 @@ PREFIX?=/usr/local
 #CONFIG_UBSAN=y
 
 # include the code for BigFloat/BigDecimal and math mode
-CONFIG_BIGNUM=y
+# CONFIG_BIGNUM=y
 
 OBJDIR=.obj
 
@@ -149,6 +149,7 @@ DEFINES+=-DHAVE_CLOSEFROM
 endif
 endif
 
+CFLAGS+=-DCONFIG_HANZI_KEYWORD
 CFLAGS+=$(DEFINES)
 CFLAGS_DEBUG=$(CFLAGS) -O0
 CFLAGS_SMALL=$(CFLAGS) -Os
@@ -201,9 +202,9 @@ else
 QJSC_CC=$(CC)
 QJSC=./qjsc$(EXE)
 endif
-ifndef CONFIG_WIN32
-PROGS+=qjscalc
-endif
+# ifndef CONFIG_WIN32
+# PROGS+=qjscalc
+# endif
 ifdef CONFIG_M32
 PROGS+=qjs32 qjs32_s
 endif
@@ -217,7 +218,7 @@ ifeq ($(CROSS_PREFIX),)
 ifndef CONFIG_ASAN
 ifndef CONFIG_MSAN
 ifndef CONFIG_UBSAN
-PROGS+=examples/hello examples/hello_module examples/test_fib
+# PROGS+=examples/hello examples/hello_module examples/test_fib
 ifdef CONFIG_SHARED_LIBS
 PROGS+=examples/fib.so examples/point.so
 endif
@@ -230,10 +231,11 @@ all: $(OBJDIR) $(OBJDIR)/quickjs.check.o $(OBJDIR)/qjs.check.o $(PROGS)
 
 QJS_LIB_OBJS=$(OBJDIR)/quickjs.o $(OBJDIR)/libregexp.o $(OBJDIR)/libunicode.o $(OBJDIR)/cutils.o $(OBJDIR)/quickjs-libc.o $(OBJDIR)/libbf.o
 
-QJS_OBJS=$(OBJDIR)/qjs.o $(OBJDIR)/repl.o $(QJS_LIB_OBJS)
-ifdef CONFIG_BIGNUM
-QJS_OBJS+=$(OBJDIR)/qjscalc.o
-endif
+# QJS_OBJS=$(OBJDIR)/qjs.o $(OBJDIR)/repl.o $(QJS_LIB_OBJS)
+QJS_OBJS=$(OBJDIR)/qjs.o $(QJS_LIB_OBJS)
+# ifdef CONFIG_BIGNUM
+# QJS_OBJS+=$(OBJDIR)/qjscalc.o
+# endif
 
 HOST_LIBS=-lm -ldl -lpthread
 LIBS=-lm
@@ -289,8 +291,8 @@ qjs32_s: $(patsubst %.o, %.m32s.o, $(QJS_OBJS))
 	$(CC) -m32 $(LDFLAGS) -o $@ $^ $(LIBS)
 	@size $@
 
-qjscalc: qjs
-	ln -sf $< $@
+# qjscalc: qjs
+# 	ln -sf $< $@
 
 ifdef CONFIG_LTO
 LTOEXT=.lto
@@ -309,11 +311,11 @@ endif # CONFIG_LTO
 libquickjs.fuzz.a: $(patsubst %.o, %.fuzz.o, $(QJS_LIB_OBJS))
 	$(AR) rcs $@ $^
 
-repl.c: $(QJSC) repl.js
-	$(QJSC) -c -o $@ -m repl.js
+# repl.c: $(QJSC) repl.js
+# 	$(QJSC) -c -o $@ -m repl.js
 
-qjscalc.c: $(QJSC) qjscalc.js
-	$(QJSC) -fbignum -c -o $@ qjscalc.js
+# qjscalc.c: $(QJSC) qjscalc.js
+# 	$(QJSC) -fbignum -c -o $@ qjscalc.js
 
 ifneq ($(wildcard unicode/UnicodeData.txt),)
 $(OBJDIR)/libunicode.o $(OBJDIR)/libunicode.m32.o $(OBJDIR)/libunicode.m32s.o \
@@ -412,13 +414,13 @@ examples/hello: $(OBJDIR)/hello.o $(QJS_LIB_OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 endif
 
-# example of static JS compilation with modules
-HELLO_MODULE_SRCS=examples/hello_module.js
-HELLO_MODULE_OPTS=-fno-string-normalize -fno-map -fno-promise -fno-typedarray \
-           -fno-typedarray -fno-regexp -fno-json -fno-eval -fno-proxy \
-           -fno-date -m
-examples/hello_module: $(QJSC) libquickjs$(LTOEXT).a $(HELLO_MODULE_SRCS)
-	$(QJSC) $(HELLO_MODULE_OPTS) -o $@ $(HELLO_MODULE_SRCS)
+# # example of static JS compilation with modules
+# HELLO_MODULE_SRCS=examples/hello_module.js
+# HELLO_MODULE_OPTS=-fno-string-normalize -fno-map -fno-promise -fno-typedarray \
+#            -fno-typedarray -fno-regexp -fno-json -fno-eval -fno-proxy \
+#            -fno-date -m
+# examples/hello_module: $(QJSC) libquickjs$(LTOEXT).a $(HELLO_MODULE_SRCS)
+# 	$(QJSC) $(HELLO_MODULE_OPTS) -o $@ $(HELLO_MODULE_SRCS)
 
 # use of an external C module (static compilation)
 

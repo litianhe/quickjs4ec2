@@ -1,0 +1,212 @@
+// 算始
+
+// 1. 使用 若始/若否 关键字
+函始 test_if_else() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用  常量/若始/若否 关键字")
+    常量 condition = 真;
+    若始 (condition)
+        console.log("条件为 真");
+    若否
+        console.log("条件为 假");
+    // 若终
+    console.log("[测试] 测试通过\n")
+}
+// } //函终
+
+// 2. 使用 返回 关键字
+函始 test_return() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用  返回 关键字")
+    返回 "这是一个返回值";
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 3. 使用 空 和 typeof 检查
+函始 test_null() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用  空 关键字")
+    令 value = 空;
+    console.log(`value is '空', type is ${typeof value}`);
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 4. 使用 新建 关键字创建对象
+函始 test_new() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用  类始 关键字")
+    类始 Person {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        greet() {
+            console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+        }
+    } //} //类终
+
+    令 person = 新建 Person("Alice", 30);
+    person.greet();
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 5. 使用 在 关键字检查属性是否存在
+函始 test_in() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用  令/在/若始/若否 关键字")
+    令 obj = { a: 1, b: 2, c: 3 };
+    若始 ('a' 在 obj)
+        console.log("对象中包含属性 'a'");
+    若否
+        console.log("对象中不包含属性 'a'");
+    // 若终
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 6. 使用 当序/当始 循环
+函始 test_do_while() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用  当序/当始 关键字")
+    令 i = 0;
+    当序 {
+        console.log(`当前 i 的值是 ${i}`);
+        i++;
+    } 当始 (i < 5);
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 7. 使用 对始 循环、跳出 和 继续 关键字
+函始 test_for_loop() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用  对始/跳出/继续 关键字")
+    对始 (令 i = 0; i < 10; i++) {
+        若始 (i === 3)
+            console.log("跳过 i = 3");
+            继续;
+        若又 (i === 7)
+            console.log("提前退出循环");
+            跳出;
+        // 若终
+        console.log(`当前 i 的值是 ${i}`);
+    }
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 8. 使用 岔始/岔道/主道 关键字
+函始 test_switch_case() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用 岔始/岔道/主道 关键字")
+    令 day = 3;
+    岔始 (day) {
+        岔道 1:
+            console.log("星期一");
+            跳出;
+        岔道 2:
+            console.log("星期二");
+            跳出;
+        岔道 3:
+            console.log("星期三");
+            跳出;
+        岔道 4:
+            console.log("星期四");
+            跳出;
+        岔道 5:
+            console.log("星期五");
+            跳出;
+        主道:
+            console.log("周末");
+    } 
+    // 岔终
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 9. 使用 抛出、探始、探错 和 探总 关键字
+函始 test_exception_handling() {
+    console.log("--------------------------------")
+    console.log("[ 测试] 使用 探始/抛出/探错/探总 关键字")
+    探始 {
+        console.log("新建并抛出异常...")
+        抛出 新建 Error("这是一个测试用的错误");
+    } 探错 (error) {
+        console.log(`捕获到错误: ${error.message}`);
+    } 探总 {
+        console.log("探总： 探总是会执行");
+    } 
+    // 探终
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 10. 使用 函始 关键字定义函数
+函始 test_function() {
+    console.log("--------------------------------")
+    console.log("[测试] 使用 函始/返回 关键字")
+    函始 add(a, b) {
+        返回 a + b;
+    }
+    console.log(`2 + 3 = ${add(2, 3)}`);
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 11. 使用 用 关键字
+函始 test_with() {
+    console.log("--------------------------------")
+    console.log("[测试] 使用 用/令 关键字")
+    令 obj = { x: 1, y: 2 };
+    用 (obj) {
+        console.log(`x = ${x}, y = ${y}`);
+    }
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 12. 使用 类始 关键字定义类
+函始 test_class() {
+    console.log("--------------------------------")
+    console.log("[测试] 使用 类始/令/新建/返回 关键字")
+    类始 Rectangle {
+        constructor(width, height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        getArea() {
+            返回 this.width * this.height;
+        }
+    } //类终
+
+
+    令 rect = 新建 Rectangle(4, 5);
+    console.log(`矩形的面积是 ${rect.getArea()}`);
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 13. 使用 常量 和 令 关键字
+函始 test_const_let() {
+    console.log("--------------------------------")
+    console.log("[测试] 使用 常量/令 关键字")
+    常量 PI = 3.14;
+    令 radius = 5;
+    console.log(`圆的面积是 ${PI * radius * radius}`);
+    console.log("[测试] 测试通过\n")
+} //函终
+
+// 调用所有测试函数
+函始 main() {
+    test_if_else();
+    console.log(test_return());
+    test_null();
+    test_new();
+    test_in();
+    test_do_while();
+    test_for_loop();
+    test_switch_case();
+    test_exception_handling();
+    test_function();
+    test_with();
+    test_class();
+    test_const_let();
+} //函终
+
+main();
+
+// 算终
