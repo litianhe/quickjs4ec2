@@ -45,6 +45,7 @@ EC2 的规范可见：
 
 ## 作者
 
+- [LI Tianhe](https://github.com/litianhe)
 - [魏永明](https://github.com/VincentWei)
 
 ## 许可证
