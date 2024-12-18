@@ -972,18 +972,30 @@ struct JSObject {
 
 enum {
     __JS_ATOM_NULL = JS_ATOM_NULL,
-#define DEF(name, str) JS_ATOM_ ## name,
-#include "quickjs-atom.h"
-#undef DEF
+#if CONFIG_HANZI_KEYWORD
+    #define DEF(name, str, han_str) JS_ATOM_ ## name,
+    #include "quickjs-atom-ec2.h"
+    #undef DEF
+#else
+    #define DEF(name, str) JS_ATOM_ ## name,
+    #include "quickjs-atom.h"
+    #undef DEF
+#endif
     JS_ATOM_END,
 };
 #define JS_ATOM_LAST_KEYWORD JS_ATOM_super
 #define JS_ATOM_LAST_STRICT_KEYWORD JS_ATOM_yield
 
 static const char js_atom_init[] =
-#define DEF(name, str) str "\0"
-#include "quickjs-atom.h"
-#undef DEF
+#if CONFIG_HANZI_KEYWORD
+    #define DEF(name, str, han_str) han_str "\0"
+    #include "quickjs-atom-ec2.h"
+    #undef DEF
+#else
+    #define DEF(name, str) str "\0"
+    #include "quickjs-atom.h"
+    #undef DEF
+#endif
 ;
 
 typedef enum OPCodeFormat {
@@ -19829,6 +19841,7 @@ enum {
     TOK_FALSE,
     TOK_TRUE,
     TOK_IF,
+    TOK_IFEL,
     TOK_ELSE,
     TOK_RETURN,
     TOK_VAR,
@@ -26646,6 +26659,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             goto fail;
         break;
     case TOK_IF:
+    case TOK_IFEL:
         {
             int label1, label2, mask;
             if (next_token(s))
@@ -33612,6 +33626,7 @@ static __exception int js_parse_directives(JSParseState *s)
         case TOK_FALSE:
         case TOK_TRUE:
         case TOK_IF:
+        case TOK_IFEL:
         case TOK_RETURN:
         case TOK_VAR:
         case TOK_THIS:

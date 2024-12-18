@@ -43,8 +43,8 @@
 #include "cutils.h"
 #include "quickjs-libc.h"
 
-extern const uint8_t qjsc_repl[];
-extern const uint32_t qjsc_repl_size;
+// extern const uint8_t qjsc_repl[];
+// extern const uint32_t qjsc_repl_size;
 #ifdef CONFIG_BIGNUM
 extern const uint8_t qjsc_qjscalc[];
 extern const uint32_t qjsc_qjscalc_size;
@@ -516,9 +516,9 @@ int main(int argc, char **argv)
             if (eval_file(ctx, filename, module))
                 goto fail;
         }
-        if (interactive) {
-            js_std_eval_binary(ctx, qjsc_repl, qjsc_repl_size, 0);
-        }
+        // if (interactive) {
+        //     js_std_eval_binary(ctx, qjsc_repl, qjsc_repl_size, 0);
+        // }
         js_std_loop(ctx);
     }
 
