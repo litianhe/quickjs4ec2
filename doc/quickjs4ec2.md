@@ -37,6 +37,18 @@ DEF(false, "false", "假")
    - EC2 不使用 `{}`，用 `若终/当终/函终/算终` 等关键词表示复合语句的各个分句。
    - EC2 要求在复合语句的各分句结束时必须换行。
    - EC2 有严格的代码块缩进要求：要么全部使用制表符（`\t`）要么全部使用空格（` `），且同一级的缩进数量必须相同。
+   - 解析器的主要代码在 `quickjs.c` 文件中的 `js_parse_statement_or_decl()` 这个函数里边。
+   - 新增或修改关键词时，要确保关键词原子和对应词元（token）的标识符 `TOK_XXX` 在数量和顺序上保持一致；经过分词器处理之后，就得到 `TOK_XXX` 词元标识符，之后修改 `js_parse_statement_or_decl()` 函数。
+
+```c
+    /* keywords: WARNING: same order as atoms */
+    TOK_NULL, /* must be first */
+    TOK_FALSE,
+    TOK_TRUE,
+    TOK_IF,
+    TOK_IFEL,
+    TOK_ELSE,
+```
 
 4) 调整 quickjs 解析器，处理如下 JavaScript 和 EC2 在语法上的不同：
    - 定义函数的差异：JS 在函数名称之后必须跟随 `()` 包围的参数列表。EC2：函数名称之后若无 `()` 则视作无参数。
