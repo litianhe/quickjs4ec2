@@ -3,13 +3,34 @@
 // 1. 使用 若始/若否 关键字
 函始 test_if_else() {
     console.log("--------------------------------")
-    console.log("[ 测试] 使用  常量/若始/若否 关键字")
-    常量 condition = 真;
-    若始 (condition)
-        console.log("条件为 真");
-    若否
-        console.log("条件为 假");
-    // 若终
+    console.log("[测试] 使用  若始/若又/若否 关键字")
+
+
+    函始 getGrade(score) {
+        若始 (score >= 90) {
+            console.log(`${score} 分，成绩是 A`);
+        } 
+        若又 (score >= 80) {
+            console.log(`${score} 分，成绩是 B`);
+        } 
+        若又 (score >= 70) {
+            console.log(`${score} 分，成绩是 C`);
+        } 
+        若又 (score >= 60) {
+            console.log(`${score} 分，成绩是 D`);
+        } 
+        若否 {
+            console.log(`${score} 分，成绩是 F`);
+        }
+        // 若终
+    }
+
+    getGrade(95);
+    getGrade(85);
+    getGrade(75);
+    getGrade(65);
+    getGrade(55);
+    getGrade(0);
     console.log("[测试] 测试通过\n")
 }
 // } //函终
@@ -81,14 +102,25 @@
     console.log("--------------------------------")
     console.log("[ 测试] 使用  对始/跳出/继续 关键字")
     对始 (令 i = 0; i < 10; i++) {
-        若始 (i === 3)
-            console.log("跳过 i = 3");
-            继续;
-        若又 (i === 7)
-            console.log("提前退出循环");
-            跳出;
-        // 若终
         console.log(`当前 i 的值是 ${i}`);
+        若始 (i === 2) {
+            console.log(`若始 i = ${i}`);
+            继续;
+        }
+        若又 (i === 3) {
+            console.log(`若又 i = ${i}`);
+            继续;
+        }
+        若又 (i === 5) {
+            console.log(`若又 i = ${i}`);
+            继续;
+        }
+        若又 (i === 7) {
+            console.log(`若又 i = ${i}, 跳出循环`);
+            跳出;
+        }
+        // 若终
+        
     }
     console.log("[测试] 测试通过\n")
 } //函终
@@ -97,27 +129,36 @@
 函始 test_switch_case() {
     console.log("--------------------------------")
     console.log("[ 测试] 使用 岔始/岔道/主道 关键字")
-    令 day = 3;
-    岔始 (day) {
-        岔道 1:
-            console.log("星期一");
-            跳出;
-        岔道 2:
-            console.log("星期二");
-            跳出;
-        岔道 3:
-            console.log("星期三");
-            跳出;
-        岔道 4:
-            console.log("星期四");
-            跳出;
-        岔道 5:
-            console.log("星期五");
-            跳出;
-        主道:
-            console.log("周末");
-    } 
-    // 岔终
+
+    函始 getDayName(day) {
+        岔始 (day) {
+            岔道 1:
+                console.log("星期一");
+                跳出;
+            岔道 2:
+                console.log("星期二");
+                跳出;
+            岔道 3:
+                console.log("星期三");
+                跳出;
+            岔道 4:
+                console.log("星期四");
+                跳出;
+            岔道 5:
+                console.log("星期五");
+                跳出;
+            主道:
+                console.log("周末");
+        } 
+        // 岔终
+    }
+    getDayName(1);
+    getDayName(2);
+    getDayName(3);
+    getDayName(4);
+    getDayName(5);
+    getDayName(6);
+    getDayName(7);
     console.log("[测试] 测试通过\n")
 } //函终
 

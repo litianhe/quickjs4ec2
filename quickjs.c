@@ -26659,9 +26659,8 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             goto fail;
         break;
     case TOK_IF:
-    case TOK_IFEL:
         {
-            int label1, label2, mask;
+            int label_next, label_end, mask;
             if (next_token(s))
                 goto fail;
             /* create a new scope for `let f;if(1) function f(){}` */
@@ -26669,7 +26668,7 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
             set_eval_ret_undefined(s);
             if (js_parse_expr_paren(s))
                 goto fail;
-            label1 = emit_goto(s, OP_if_false, -1);
+            label_next = emit_goto(s, OP_if_false, -1);
             if (s->cur_func->js_mode & JS_MODE_STRICT)
                 mask = 0;
             else
@@ -26677,19 +26676,29 @@ static __exception int js_parse_statement_or_decl(JSParseState *s,
 
             if (js_parse_statement_or_decl(s, mask))
                 goto fail;
+            
+            label_end = emit_goto(s, OP_goto, -1);
 
-            if (s->token.val == TOK_ELSE) {
-                label2 = emit_goto(s, OP_goto, -1);
+            emit_label(s, label_next);
+            while (s->token.val == TOK_IFEL) {
                 if (next_token(s))
                     goto fail;
-
-                emit_label(s, label1);
+                if (js_parse_expr_paren(s))
+                    goto fail;
+                label_next = emit_goto(s, OP_if_false, -1);
                 if (js_parse_statement_or_decl(s, mask))
                     goto fail;
-
-                label1 = label2;
+                emit_goto(s, OP_goto, label_end);
+                emit_label(s, label_next);
             }
-            emit_label(s, label1);
+            if (s->token.val == TOK_ELSE) {
+                if (next_token(s))
+                    goto fail;
+                if (js_parse_statement_or_decl(s, mask))
+                    goto fail;
+            }
+
+            emit_label(s, label_end);
             pop_scope(s);
         }
         break;

@@ -2,8 +2,9 @@ name: ci
 
 on:
   pull_request:
+    branches:
+      - master
     paths:
-      - '**'
       - '!.gitignore'
       - '!LICENSE'
       - '!TODO'
@@ -12,7 +13,14 @@ on:
       - '.github/workflows/ci.yml'
   push:
     branches:
-      - '*'
+      - master
+    paths:
+      - '!.gitignore'
+      - '!LICENSE'
+      - '!TODO'
+      - '!doc/**'
+      - '!examples/**'
+      - '.github/workflows/ci.yml'
 
 jobs:
   linux:
@@ -33,9 +41,9 @@ jobs:
       - name: Run built-in tests
         run: |
           make test
-      - name: Run microbench
-        run: |
-          make microbench
+      # - name: Run microbench
+      #   run: |
+      #     make microbench
 
   linux-asan:
     runs-on: ubuntu-latest
