@@ -51,7 +51,7 @@ DEF(false, "false", "假")
 
    1. EC2 不使用 `{}`，用 `若终/当终/函终/算终` 等关键词表示复合语句的各个分句。
    1. EC2 要求在复合语句的各分句结束时必须换行。
-   1. EC2 有严格的代码块缩进要求：要么全部使用制表符（`\t`）要么全部使用空格（` `），且同一级的缩进数量必须相同。
+   1. EC2 有严格的代码块缩进要求：要么全部使用制表符（`'\t'`）要么全部使用空格（`' '`），且同一级的缩进数量必须相同。
 
 为此，需要调整 `JSParseState` 结构体，增加如下字段，用来跟踪块词元的嵌套栈并记录缩进字符及其尺寸：
 
@@ -74,7 +74,7 @@ typedef struct JSParseState {
      * are determined by the first occurence of indentation in a file.
      */
     uint8_t indent_ch;  /* '\t' or ' ' */
-    uint8_t indent_sz;  /* the size of indentation */
+    uint8_t indent_sz;  /* the size of one indentation */
 
     BOOL got_lf; /* true if got line feed before the current token */
     const uint8_t *last_ptr;
