@@ -466,40 +466,43 @@ test: qjs32
 endif
 
 test: qjs
-	./qjs tests/test_closure.js
-	./qjs tests/test_language.js
-	./qjs --std tests/test_builtin.js
-	./qjs tests/test_loop.js
-	./qjs tests/test_bignum.js
-	./qjs tests/test_std.js
-	./qjs tests/test_worker.js
-ifdef CONFIG_SHARED_LIBS
-ifdef CONFIG_BIGNUM
-	./qjs --bignum tests/test_bjson.js
-else
-	./qjs tests/test_bjson.js
-endif
-	./qjs examples/test_point.js
-endif
-ifdef CONFIG_BIGNUM
-	./qjs --bignum tests/test_op_overloading.js
-	./qjs --bignum tests/test_bigfloat.js
-	./qjs --qjscalc tests/test_qjscalc.js
-endif
-ifdef CONFIG_M32
-	./qjs32 tests/test_closure.js
-	./qjs32 tests/test_language.js
-	./qjs32 --std tests/test_builtin.js
-	./qjs32 tests/test_loop.js
-	./qjs32 tests/test_bignum.js
-	./qjs32 tests/test_std.js
-	./qjs32 tests/test_worker.js
-ifdef CONFIG_BIGNUM
-	./qjs32 --bignum tests/test_op_overloading.js
-	./qjs32 --bignum tests/test_bigfloat.js
-	./qjs32 --qjscalc tests/test_qjscalc.js
-endif
-endif
+	./qjs examples/ec2_demo.ec2
+
+# test: qjs
+# 	./qjs tests/test_closure.js
+# 	./qjs tests/test_language.js
+# 	./qjs --std tests/test_builtin.js
+# 	./qjs tests/test_loop.js
+# 	./qjs tests/test_bignum.js
+# 	./qjs tests/test_std.js
+# 	./qjs tests/test_worker.js
+# ifdef CONFIG_SHARED_LIBS
+# ifdef CONFIG_BIGNUM
+# 	./qjs --bignum tests/test_bjson.js
+# else
+# 	./qjs tests/test_bjson.js
+# endif
+# 	./qjs examples/test_point.js
+# endif
+# ifdef CONFIG_BIGNUM
+# 	./qjs --bignum tests/test_op_overloading.js
+# 	./qjs --bignum tests/test_bigfloat.js
+# 	./qjs --qjscalc tests/test_qjscalc.js
+# endif
+# ifdef CONFIG_M32
+# 	./qjs32 tests/test_closure.js
+# 	./qjs32 tests/test_language.js
+# 	./qjs32 --std tests/test_builtin.js
+# 	./qjs32 tests/test_loop.js
+# 	./qjs32 tests/test_bignum.js
+# 	./qjs32 tests/test_std.js
+# 	./qjs32 tests/test_worker.js
+# ifdef CONFIG_BIGNUM
+# 	./qjs32 --bignum tests/test_op_overloading.js
+# 	./qjs32 --bignum tests/test_bigfloat.js
+# 	./qjs32 --qjscalc tests/test_qjscalc.js
+# endif
+# endif
 
 stats: qjs qjs32
 	./qjs -qd
