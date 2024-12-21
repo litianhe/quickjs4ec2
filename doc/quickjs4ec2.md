@@ -56,7 +56,7 @@ DEF(false, "false", "假")
 为此，需要调整 `JSParseState` 结构体，增加如下字段，用来跟踪块词元的嵌套栈并记录缩进字符及其尺寸：
 
 ```c
-#define MAX_DEPTH_BTS       UINT8_MAX
+#define MAX_BTS_DEPTH       (UINT8_MAX + 1)
 
 typedef struct JSParseState {
     JSContext *ctx;
@@ -66,7 +66,7 @@ typedef struct JSParseState {
     JSToken token;
 
     /* the block token stack (bts). */
-    JSToken bts[MAX_DEPTH_BLOCK_TOKEN_STACK];
+    JSToken bts[MAX_BTS_DEPTH];
     uint8_t bts_depth;
 
     /* the indentation character (ic).
